@@ -1,17 +1,23 @@
-let R = 110;//scale
+let R = 50;//scale
 let vars = {
+  k:5/2,
+  k2:2/3,
+  p:2/3,
+  h:1,
+};
+let backup = {
   k: 2.8534,
   k2: 0.8651,
   p: 0.7652,
-  h: 170.0,
-}
+  h: 0.0,
+};
 let targvars = {...vars};
 let varspds = {
-  k: 0.005,
-  k2: 0.002,
-  p: 0.0005,
-  h: 1,
-}
+  k: 0.003,
+  k2: 0.001,
+  p: 0.001,
+  h: 0.01,
+};
 let k = 2.8335;//ratio of first two circles
 let targk = k;
 let k2 = 0.8651;//ratio of first to third
@@ -22,7 +28,7 @@ let cnt=0;
 let h = 0;//distance of lever to point
 let targh = h;
 let spd = 0.0005;
-let play = true;
+let play = false;
 let total_steps = 0;
 let target_interval = 200;
 let history = [];
@@ -129,13 +135,13 @@ function draw() {
   }
   let r = R/vars.k;
   let r2 = R/vars.k2;
-  let x = (R + r) * cos(0) + (r + r2) * cos(0 + (R*0)/r - R*0/(vars.p*r)) + h * cos(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
-  let y = (R + r) * sin(0) + (r + r2) * sin(0 + (R*0)/r - R*0/(vars.p*r)) + h * sin(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
+  let x = (R + r) * cos(0) + (r + r2) * cos(0 + (R*0)/r - R*0/(vars.p*r)) + R*vars.h * cos(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
+  let y = (R + r) * sin(0) + (r + r2) * sin(0 + (R*0)/r - R*0/(vars.p*r)) + R*vars.h * sin(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
   for(let t = 0; t<200;t+=0.02){//range and precision
      let oldx = x;
      let oldy = y;
-     x = (R + r) * cos(t) + (r + r2) * cos(t + (R*t)/r - R*t/(vars.p*r)) + h * cos(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
-     y = (R + r) * sin(t) + (r + r2) * sin(t + (R*t)/r - R*t/(vars.p*r)) + h * sin(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
+     x = (R + r) * cos(t) + (r + r2) * cos(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * cos(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
+     y = (R + r) * sin(t) + (r + r2) * sin(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * sin(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
      line(oldx,oldy,x,y);
   }
 }
