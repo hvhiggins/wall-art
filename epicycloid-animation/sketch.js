@@ -13,10 +13,10 @@ let backup = {
 };
 let targvars = {...vars};
 let varspds = {
-  k: 0.003,
-  k2: 0.001,
-  p: 0.001,
-  h: 0.01,
+  k: 0.001,
+  k2: 0.0003,
+  p: 0.0003,
+  h: 0.003,
 };
 let k = 2.8335;//ratio of first two circles
 let targk = k;
@@ -32,12 +32,47 @@ let play = false;
 let total_steps = 0;
 let target_interval = 200;
 let history = [];
-let lastTarg; 
+let lastTarg;
+
+function convertBase16(num) {
+  return num < 10 ? num : num.toString(16)
+}
+
+// Copied from http://thecolourclock.com/
+getHex = function() {
+  var d = new Date()
+  var milliseconds = d.getMilliseconds()
+  var seconds = d.getSeconds()
+  var minutes = d.getMinutes()
+  var hours = d.getHours()
+  var array = new Array()
+  var calc = (hours + minutes / 60) / 24
+  array[0] = convertBase16(Math.round(calc * 15))
+  var calc2 = NaN
+  if (hours >= 20) {
+    calc2 = (hours + minutes / 60) / 4
+  } else {
+    calc2 = (hours + minutes / 60) / 10
+  }
+  var calc3 = Math.floor(calc2)
+  array[1] = convertBase16(Math.round((calc2 - calc3) * 15))
+  var calc4 = (minutes + seconds / 60) / 60
+  array[2] = convertBase16(Math.round(calc4 * 15))
+  var calc5 = (minutes + seconds / 60) / 10
+  var calc6 = Math.floor(calc5)
+  array[3] = convertBase16(Math.round((calc5 - calc6) * 15))
+  var calc7 = (seconds + milliseconds / 1000) / 60
+  array[4] = convertBase16(Math.round(calc7 * 15))
+  var calc8 = (seconds + milliseconds / 1000) / 10
+  var calc9 = Math.floor(calc8)
+  array[5] = convertBase16(Math.round((calc8 - calc9) * 15))
+
+  return '#' + array.join('');
+}
+
 function setup() {
-  createCanvas(screen.width,screen.height);
-  stroke(255,0,0);
-  fill(255,0,0);
-  frameRate(24);
+  createCanvas(window.innerWidth,window.innerHeight);
+  frameRate(30);
   textFont('Courier New');
 }
 
@@ -71,11 +106,17 @@ function historyStepBack(){
   }
 }
 
-function mousePressed() {
-  let fs = fullscreen();
-  fullscreen(!fs); 
-}
+// function mousePressed() {
+//   let fs = fullscreen();
+//   fullscreen(!fs); 
+// }
+
 function draw() {
+  color = getHex();
+  stroke(color);
+  fill(color);
+  console.log(color);
+
   total_steps+=1;
   if (play) {updateRandAll()}
   background(0);
@@ -88,50 +129,50 @@ function draw() {
   text("cnt: "+parseInt(cnt), 10,ypos);
   translate(width/2,height/2);
   if(keyIsPressed === true){//defines controls use https://keycode.info/ to modify keys
-      switch(keyCode){
-	case 72:
-	  historyStepBack();
-	  break;
-	case 84: // t
-          cnt=0;
-          updateRandAll();
-	  break;
-	case 32: // spacebar
+    switch(keyCode){
+      case 72:
+        historyStepBack();
+        break;
+      case 84: // t
+              cnt=0;
+              updateRandAll();
+        break;
+      case 32: // spacebar
           play = !play;
           break;
-        case 81:
-          vars.k+=varspds.k;
-          targvars.k+=varspds.k;
-          break;
-        case 65:
-          vars.k-=varspds.k;
-          targvars.k-=varspds.k;
-          break;
-        case 87:
-          vars.k2+=varspds.k2;
-          targvars.k2+=varspds.k2;
-          break;
-        case 83:
-          vars.k2-=varspds.k2;
-          targvars.k2-=varspds.k2;
-          break;
-        case 69:
-          vars.p+=varspds.p;
-          targvars.p+=varspds.p;
-          break;
-        case 68:
-          vars.p-=varspds.p;
-          targvars.p-=varspds.p;
-          break;
-        case 82:
-          vars.h+=varspds.h;
-          targvars.h+=varspds.h;
-          break;
-        case 70:
-          vars.h-=varspds.h;
-          targvars.h-=varspds.h;
-          break;
-      }
+      case 81:
+        vars.k+=varspds.k;
+        targvars.k+=varspds.k;
+        break;
+      case 65:
+        vars.k-=varspds.k;
+        targvars.k-=varspds.k;
+        break;
+      case 87:
+        vars.k2+=varspds.k2;
+        targvars.k2+=varspds.k2;
+        break;
+      case 83:
+        vars.k2-=varspds.k2;
+        targvars.k2-=varspds.k2;
+        break;
+      case 69:
+        vars.p+=varspds.p;
+        targvars.p+=varspds.p;
+        break;
+      case 68:
+        vars.p-=varspds.p;
+        targvars.p-=varspds.p;
+        break;
+      case 82:
+        vars.h+=varspds.h;
+        targvars.h+=varspds.h;
+        break;
+      case 70:
+        vars.h-=varspds.h;
+        targvars.h-=varspds.h;
+        break;
+    }
   }
   let r = R/vars.k;
   let r2 = R/vars.k2;
