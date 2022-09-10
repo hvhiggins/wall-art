@@ -3,7 +3,7 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 var w =canvas.width;
 var h = canvas.height;
-var cx=0.7885;
+var cx=0.2685;
 var cy=0;
 
 class Complex {
@@ -40,44 +40,39 @@ var maxiter=200;
 var colors =chroma.scale(['blue','red','green']).colors(maxiter+1, 'rgb');
 
 document.addEventListener('keydown', function(event) {
-  //defines controls use https://keycode.info/ to modify keys
- 	  switch(event.keyCode){
-	      case 87:
-		      center.im-=.05/zoom;
-		      break;
-	      case 83:
-		      center.im+=.05/zoom;
-		      break;
-	      case 68:
-		      center.re+=.05/zoom;
-		      break;
-	      case 65:
-		      center.re-=.05/zoom;
-		      break;
-	      case 81:
-		      zoom=zoom/1.1;
-		      break;
-	      case 69:
-		      zoom=zoom*1.1;
-		      break;
-	      case 38:
-		cy-=.01/zoom;
-		break;
-		case 40:
-			  cy+=.01/zoom;
-			  break;
-		  case 37:
-			  cx-=.01/zoom;
-			  break;
-		  case 39:
-			  cx+=.01/zoom;
-			  break;
-
-
-			
+	switch(event.key){
+		case 'w':
+			center.im-=.05/zoom;
+			break;
+		case 's':
+			center.im+=.05/zoom;
+			break;
+		case 'd':
+			center.re+=.05/zoom;
+			break;
+		case 'a':
+			center.re-=.05/zoom;
+			break;
+		case 'q':
+			zoom=zoom/1.1;
+			break;
+		case 'e':
+			zoom=zoom*1.1;
+			break;
+		case 'ArrowUp':
+			cy-=.01/zoom;
+			break;
+		case 'ArrowDown':
+			cy+=.01/zoom;
+			break;
+		case 'ArrowLeft':
+			cx-=.01/zoom;
+			break;
+		case 'ArrowRight':
+			cx+=.01/zoom;
+			break;
       }
-	console.log([cx,cy]);
-//	console.log('clickity');draw();
+	console.log(`c=${cx}+${cy}i`);
 })
 
 function cross(h,w){

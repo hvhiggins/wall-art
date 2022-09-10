@@ -105,17 +105,58 @@ function historyStepBack(){
     vars[v] = vars[v]+(lastTarg[v]-vars[v])/cnt;
   }
 }
+document.addEventListener('keydown', function(event) {
+	switch(event.key){
+    case 'h':
+      historyStepBack();
+      break;
+    case 't': // t
+      cnt=0;
+      updateRandAll();
+      break;
+    case ' ': // spacebar
+        play = !play;
+        break;
+    case 'a':
+      vars.k+=varspds.k;
+      targvars.k+=varspds.k;
+      break;
+    case 'd':
+      vars.k-=varspds.k;
+      targvars.k-=varspds.k;
+      break;
+    case 'w':
+      vars.k2+=varspds.k2;
+      targvars.k2+=varspds.k2;
+      break;
+    case 's':
+      vars.k2-=varspds.k2;
+      targvars.k2-=varspds.k2;
+      break;
+    case 'e':
+      vars.p+=varspds.p;
+      targvars.p+=varspds.p;
+      break;
+    case 'd':
+      vars.p-=varspds.p;
+      targvars.p-=varspds.p;
+      break;
+    case 'f':
+      vars.h+=varspds.h;
+      targvars.h+=varspds.h;
+      break;
+    case 'r':
+      vars.h-=varspds.h;
+      targvars.h-=varspds.h;
+      break;
+  }
+})
 
-// function mousePressed() {
-//   let fs = fullscreen();
-//   fullscreen(!fs); 
-// }
 
 function draw() {
   color = getHex();
   stroke(color);
   fill(color);
-  console.log(color);
 
   total_steps+=1;
   if (play) {updateRandAll()}
@@ -128,52 +169,6 @@ function draw() {
   }
   text("cnt: "+parseInt(cnt), 10,ypos);
   translate(width/2,height/2);
-  if(keyIsPressed === true){//defines controls use https://keycode.info/ to modify keys
-    switch(keyCode){
-      case 72:
-        historyStepBack();
-        break;
-      case 84: // t
-              cnt=0;
-              updateRandAll();
-        break;
-      case 32: // spacebar
-          play = !play;
-          break;
-      case 81:
-        vars.k+=varspds.k;
-        targvars.k+=varspds.k;
-        break;
-      case 65:
-        vars.k-=varspds.k;
-        targvars.k-=varspds.k;
-        break;
-      case 87:
-        vars.k2+=varspds.k2;
-        targvars.k2+=varspds.k2;
-        break;
-      case 83:
-        vars.k2-=varspds.k2;
-        targvars.k2-=varspds.k2;
-        break;
-      case 69:
-        vars.p+=varspds.p;
-        targvars.p+=varspds.p;
-        break;
-      case 68:
-        vars.p-=varspds.p;
-        targvars.p-=varspds.p;
-        break;
-      case 82:
-        vars.h+=varspds.h;
-        targvars.h+=varspds.h;
-        break;
-      case 70:
-        vars.h-=varspds.h;
-        targvars.h-=varspds.h;
-        break;
-    }
-  }
   let r = R/vars.k;
   let r2 = R/vars.k2;
   let x = (R + r) * cos(0) + (r + r2) * cos(0 + (R*0)/r - R*0/(vars.p*r)) + R*vars.h * cos(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
