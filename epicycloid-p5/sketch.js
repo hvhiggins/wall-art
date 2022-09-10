@@ -164,21 +164,21 @@ function draw() {
   text("Controls: Q,A: k, W,S: k2, E,D: p, R,F: h, pause/play: <spacebar>, reset targets: t",10,10);
   let ypos=30;
   for (v in vars) {
-    text(v+": "+parseFloat(vars[v]).toPrecision(4)+" | target "+v+": "+parseFloat(targvars[v]).toPrecision(4),10,ypos);
+    text(`${v}: ${parseFloat(vars[v]).toPrecision(4)} | target ${v}: "+${
+      parseFloat(targvars[v]).toPrecision(4)}`,10,ypos);
     ypos+=20;
   }
-  text("cnt: "+parseInt(cnt), 10,ypos);
+  text("Animation counter: "+parseInt(cnt), 10,ypos);
   translate(width/2,height/2);
   let r = R/vars.k;
   let r2 = R/vars.k2;
   let x = (R + r) * cos(0) + (r + r2) * cos(0 + (R*0)/r - R*0/(vars.p*r)) + R*vars.h * cos(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
   let y = (R + r) * sin(0) + (r + r2) * sin(0 + (R*0)/r - R*0/(vars.p*r)) + R*vars.h * sin(0 + R*0/r - R*0/(vars.p*r) - R*0/(vars.p*r2));
   for(let t = 0; t<200;t+=0.02){//range and precision
-     let oldx = x;
-     let oldy = y;
-     x = (R + r) * cos(t) + (r + r2) * cos(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * cos(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
-     y = (R + r) * sin(t) + (r + r2) * sin(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * sin(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
-     line(oldx,oldy,x,y);
+    let oldx = x;
+    let oldy = y;
+    x = (R + r) * cos(t) + (r + r2) * cos(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * cos(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
+    y = (R + r) * sin(t) + (r + r2) * sin(t + (R*t)/r - R*t/(vars.p*r)) + R * vars.h * sin(t + R*t/r - R*t/(vars.p*r) - R*t/(vars.p*r2));
+    line(oldx,oldy,x,y);
   }
 }
-
