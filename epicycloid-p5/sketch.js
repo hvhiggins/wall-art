@@ -1,3 +1,4 @@
+// based on https://editor.p5js.org/drawliphant/sketches/lrlHI7jd_
 let R = 50;//scale
 let vars = {
   k:5/2,

@@ -1,3 +1,5 @@
+// based on https://editor.p5js.org/drawliphant/sketches/lrlHI7jd_ by David Oliphant 
+
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
@@ -152,8 +154,9 @@ document.addEventListener('keydown', function(event) {
 var controlstext = [
     "Controls:",
     "Q,A: k, W,S: k2, E,D: p, R,F: h",
-    "pause/play: &ltspacebar&gt",
-    "reset targets: t"]
+    "pause/play: <spacebar>",
+    "reset targets: t",
+    "Thanks to David Oliphant and Sort of School"]
     
     
 let cos = Math.cos;
