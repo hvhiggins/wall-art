@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+    <title>HTML Wordle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game">
+        <div id="guesses"></div>
+        <input type="text" placeholder="Guess a word" id="guessBox" onkeydown="guessWord(event)"/>  
+        <div id="output"></div>
+        <div id="refresh"></div>
+    </div>
+</body>
+<script src="wordle.js"></script>
+</html>

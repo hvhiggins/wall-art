@@ -1,0 +1,43 @@
+body{
+    background-color: lightslategray;
+}
+
+p{
+    color: white;
+    padding : 0;
+    margin : 0;
+}
+
+#game{
+    margin: 0 auto;
+    width: 100px;
+    height: 50px;
+
+}
+
+#guesses{
+    font-family: 'Courier New', monospace; 
+    font-size: 35px;
+    line-height:100%; 
+    width: 100px;
+}
+
+input{
+    width: 100px;
+}
+
+mark{
+    color: white;
+}
+
+mark.green{
+    background-color: #0a9e0a;
+}
+
+mark.yellow{
+    background-color: #c8c815;
+}
+
+mark.gray{
+    background-color: #000000;
+}
